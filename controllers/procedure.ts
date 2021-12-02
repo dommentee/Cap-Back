@@ -13,10 +13,6 @@ router.get('/', async(req,res) => {
     }catch(err: any) {
         console.error(err.message)
     }
-    //@ts-ignore to allow postgres.query
-    // postgres.query('SELECT * from procedures in ORDER BY id ASC;', (error, results) => {
-    //     res.json(results.rows)
-    // }) 
 })
 
 // //create 
@@ -63,7 +59,7 @@ router.put('/:id', async(req,res) => {
 })
 
 //delete
- router.delete('/:id', async(req,res) => {
+router.delete('/:id', async(req,res) => {
     try {
         const {id} = req.params
         const procedureToDelete = await postgres.query(
@@ -73,17 +69,7 @@ router.put('/:id', async(req,res) => {
     } catch (err:any) {
         console.error(err.message)
     }
- })
-// router.delete('/:id', (req,res) => {
-//     //@ts-ignore to allow postgres.query
-//     postgres.query(`DELETE FROM procedures WHERE id = ${req.params.id};`, (error, results) => {
-//         //@ts-ignore to allow postgres.query
-//         postgres.query('SELECT * from procedures in ORDER BY id ASC;', (error, results) => {
-//             res.json(results.rows)
-//         }) 
-
-//     })
-// })
+})
 
 
 export default router
