@@ -23,7 +23,7 @@ app.use(express.json())
 app.get('/', (req,res) => {
     res.send('hello world')
 })
-app.use('/procedure', procedureController)
+app.use('/procedures', procedureController)
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {
