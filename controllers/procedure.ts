@@ -1,5 +1,6 @@
 
 import express from 'express'
+import { appendFile } from 'fs'
 import postgres from '../postgres'
 const router = express.Router()
 
@@ -21,30 +22,58 @@ router.get('/', async(req,res) => {
 // //create 
 router.post('/', async(req, res) => {
     try{
-        const {name, price} = req.body;
-        const newProcedure = await postgres.query(
-            'INSERT INTO procedures (name, price) VALUES ($1, $2) RETURNING *',
+        const {name, price} = req.body;//destructer
+        const newProcedure = await postgres.query(//await 
+            'INSERT INTO procedures (name, price) VALUES ($1, $2) RETURNING *',//inserts for valuse $ []
             [name, price]
         );
-        res.json(newProcedure)
+        res.json(newProcedure.rows[0])//gets only what is created
     }catch(err: any){
         console.error(err.message)
     }
 })
-// router.post('/', (req,res) => {
-//     //create
-//     //@ts-ignore to allow postgres.query
-//     postgres.query(`INSERT INTO procedures (name, price) VALUES ('${req.body.name}', ${req.body.price})`, (error, results) => {
-//         //pull all 
-//         //@ts-ignore to allow postgres.query
-//         postgres.query('SELECT * from procedures in ORDER BY id ASC;', (error, results) => {
-//             //@ts-ignore to allow postgres.query
-//             res.json(results.rows)
-//         }) 
-//     })
-// })
- 
-// //delete
+
+//get specific
+router.get('/:id', async(req,res) => {
+    try{
+        const {id} = req.params;
+        const selectedProcedure = await postgres.query('SELECT * FROM procedures WHERE procedure_id = $1', 
+            [id]
+
+        );
+        res.json(selectedProcedure.rows)//finds selected procedure
+    }catch(err: any) {
+        console.error(err.message)
+    }
+})
+
+// //update
+router.put('/:id', async(req,res) => {
+    try{
+        const {id} = req.params;
+        const {name, price} = req.body;
+        const procedureToUpdate = await postgres.query(
+            'UPDATE procedures SET (name, price) = ($1, $2) WHERE procedure_id = $3',
+            [name,  price, id]
+        );
+        res.json("updated")
+    }catch(err: any) {
+        console.error(err.message)
+    }
+})
+
+//delete
+ router.delete('/:id', async(req,res) => {
+    try {
+        const {id} = req.params
+        const procedureToDelete = await postgres.query(
+            'DELETE FROM procedures WHERE procedure_id = $1', [id]
+        );
+        res.json('procedure Deleted')
+    } catch (err:any) {
+        console.error(err.message)
+    }
+ })
 // router.delete('/:id', (req,res) => {
 //     //@ts-ignore to allow postgres.query
 //     postgres.query(`DELETE FROM procedures WHERE id = ${req.params.id};`, (error, results) => {
@@ -53,18 +82,6 @@ router.post('/', async(req, res) => {
 //             res.json(results.rows)
 //         }) 
 
-//     })
-// })
-
-// //update
-// router.put('/:id', (req,res) => {
-//     //@ts-ignore to allow postgres.query
-//     postgres.query(`UPDATE procedures SET name = '${req.body.name}', price = ${req.body.price} WHERE id = ${req.params.id}`, (error, results) => {
-//         //@ts-ignore to allow postgres.query
-//         postgres.query('SELECT * from procedures in ORDER BY id ASC;', (error, results) => {
-            
-//             res.json(results.rows)
-//         }) 
 //     })
 // })
 
