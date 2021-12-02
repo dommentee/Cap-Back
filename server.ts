@@ -21,7 +21,7 @@ app.use(cors())
 //give acess to req.body with json
 app.use(express.json())
 app.get('/', (req,res) => {
-    res.send('hello world')
+    res.send('this is the back')
 })
 app.use('/procedures', procedureController)
 
