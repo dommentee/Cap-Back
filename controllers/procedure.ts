@@ -18,10 +18,10 @@ router.get('/', async(req,res) => {
 // //create 
 router.post('/', async(req, res) => {
     try{
-        const {name, price} = req.body;//destructer
+        const {name, price, hospitalName,hospitalCity,hospitalState,hospitalRating,healTime} = req.body;//destructer
         const newProcedure = await postgres.query(//await 
-            'INSERT INTO procedures (name, price) VALUES ($1, $2) RETURNING *',//inserts for valuse $ []
-            [name, price]
+            'INSERT INTO procedures (name, price) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',//inserts for valuse $ []
+            [name, price, hospitalName, hospitalCity, hospitalState, hospitalRating, healTime]
         );
         res.json(newProcedure.rows[0])//gets only what is created
     }catch(err: any){
@@ -47,10 +47,10 @@ router.get('/:id', async(req,res) => {
 router.put('/:id', async(req,res) => {
     try{
         const {id} = req.params;
-        const {name, price} = req.body;
+        const {name, price,hospitalName,hospitalCity,hospitalState,hospitalRating,healTime} = req.body;
         const procedureToUpdate = await postgres.query(
-            'UPDATE procedures SET (name, price) = ($1, $2) WHERE procedure_id = $3',
-            [name,  price, id]
+            'UPDATE procedures SET (name, price, hospitalName, hospitalCity,hospitalState,hospitalRating,healTime) = ($1, $2,$3, $4, $5, $6, $7) WHERE procedure_id = $8',
+            [name, price, hospitalName, hospitalCity, hospitalState, hospitalRating, healTime, id]
         );
         res.json("updated")
     }catch(err: any) {
