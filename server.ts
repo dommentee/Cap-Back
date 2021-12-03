@@ -9,7 +9,7 @@
 //need start script in package.json
 
 import express from 'express'
-// import cors from 'cors'
+import cors from 'cors'
 import postgres from './postgres';
 import procedureController from './controllers/procedure'
 
@@ -18,7 +18,7 @@ const PORT = 3001;
 //middle ware
 
 //dissabled cors to see if My form would send
-// app.use(cors())
+app.use(cors())
 
 //give acess to req.body with json
 app.use(express.json())
