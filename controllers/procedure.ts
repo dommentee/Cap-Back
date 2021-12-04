@@ -6,7 +6,7 @@ const router = express.Router()
 
 //query all
 //needs to be async because connection needs to be made
-router.get('/', async(req,res) => {
+router.get('/', async(req,res, next) => {
     try {
         const allProcedures = await postgres.query('SELECT * from procedures')
         res.json(allProcedures)
@@ -16,7 +16,7 @@ router.get('/', async(req,res) => {
 })
 
 // //create 
-router.post('/', async(req, res) => {
+router.post('/', async(req, res, next) => {
     try{
         const {name, price, hospitalName,hospitalCity,hospitalState,hospitalRating,healTime} = req.body;//destructer
         const newProcedure = await postgres.query(//await 
@@ -30,7 +30,7 @@ router.post('/', async(req, res) => {
 })
 
 //get specific
-router.get('/:id', async(req,res) => {
+router.get('/:id', async(req,res,next) => {
     try{
         const {id} = req.params;
         const selectedProcedure = await postgres.query('SELECT * FROM procedures WHERE procedure_id = $1', 
@@ -44,7 +44,7 @@ router.get('/:id', async(req,res) => {
 })
 
 // //update
-router.put('/:id', async(req,res) => {
+router.put('/:id', async(req,res, next) => {
     try{
         const {id} = req.params;
         const {name, price,hospitalName,hospitalCity,hospitalState,hospitalRating,healTime} = req.body;
@@ -59,7 +59,7 @@ router.put('/:id', async(req,res) => {
 })
 
 //delete
-router.delete('/:id', async(req,res) => {
+router.delete('/:id', async(req,res, next) => {
     try {
         const {id} = req.params
         const procedureToDelete = await postgres.query(
