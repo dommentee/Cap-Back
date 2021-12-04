@@ -20,8 +20,8 @@ router.post('/', async(req, res, next) => {
     try{
         const {name, price, hospitalName,hospitalCity,hospitalState,hospitalRating,healTime} = req.body;//destructer
         const newProcedure = await postgres.query(//await 
-            'INSERT INTO procedures (name, price) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',//inserts for valuse $ []
-            [name, price, hospitalName, hospitalCity, hospitalState, hospitalRating, healTime]
+            'INSERT INTO procedures (name, price, hospitalName,hospitalCity,hospitalState,hospitalRating,healTime) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',//inserts for valuse $ []
+            [name, price, hospitalName,hospitalCity,hospitalState,hospitalRating,healTime]
         );
         res.json(newProcedure.rows[0])//gets only what is created
     }catch(err: any){

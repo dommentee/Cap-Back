@@ -23,7 +23,13 @@ INSERT INTO procedures (name, price) VALUES ('Heart Bypass', 23000);
 
 --alter table
 ALTER TABLE procedures
+ADD  healTime decimal;
+
+
+
+
+
 ADD healTime decimal;
 
 
-INSERT INTO procedures (name, price, hospitalName, hospitalCity, hospitalState, hospitalRating, healTime) VALUES ('Broken bone', 3500, 'Carney', 'Boston', 'Ma', 7.8, 46)
+INSERT INTO procedures (name, price, hospitalname, hospitalcity, hospitalstate, hospitalrating, healtime) VALUES ('Broken bone', 3500, 'Carney', 'Boston', 'Ma', 7.8, 46)

@@ -18,6 +18,7 @@ const PORT = 3001;
 //middle ware
 
 //dissabled cors to see if My form would send
+
 app.use(cors())
 
 //give acess to req.body with json
