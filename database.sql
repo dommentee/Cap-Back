@@ -7,29 +7,21 @@ CREATE TABLE procedures(
     procedure_id SERIAL PRIMARY KEY,
     name VARCHAR(30),
     price decimal,
-    hospitalName VARCHAR(30),
-    hospitalCity VARCHAR(30),
-    hospitalState VARCHAR(30),
-    hospitalRating decimal,
-    healTime decimal
+    hospital_name VARCHAR(30),
+    hospital_city VARCHAR(30),
+    hospital_state VARCHAR(30),
+    hospital_rating decimal,
+    heal_time decimal
 
 
 );
 
 --create data INSERT
-INSERT INTO procedures (name, price) VALUES ('Facial', 120);
-INSERT INTO procedures (name, price) VALUES ('Joint Replacement', 8900);
-INSERT INTO procedures (name, price) VALUES ('Heart Bypass', 23000);
+INSERT INTO procedures (name, price, hospital_name, hospital_city, hospital_state, hospital_rating, heal_time) VALUES ('Broken bone', 3500, 'Carney', 'Boston', 'Ma', 7.8, 46)
+
 
 --alter table
 ALTER TABLE procedures
 ADD  healTime decimal;
 
 
-
-
-
-ADD healTime decimal;
-
-
-INSERT INTO procedures (name, price, hospitalname, hospitalcity, hospitalstate, hospitalrating, healtime) VALUES ('Broken bone', 3500, 'Carney', 'Boston', 'Ma', 7.8, 46)
