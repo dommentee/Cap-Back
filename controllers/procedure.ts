@@ -50,7 +50,7 @@ router.put('/:id', async(req,res, next) => {
         const {name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time} = req.body;
         const procedureToUpdate = await postgres.query(
             'UPDATE procedures SET (name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time) = ($1, $2,$3, $4, $5, $6, $7) WHERE procedure_id = $8',
-            [name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time]
+            [name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time,id]
         );
         res.json("updated")
     }catch(err: any) {
