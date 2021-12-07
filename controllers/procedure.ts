@@ -11,19 +11,6 @@ router.get('/', (req,res) => {
     });
 })
 
-// search
-router.get('/', (req,res) => {
-    //@ts-ignore
-    const {search} = req.params;
-
-    postgres.query(`SELECT * FROM procedures WHERE name = ${search}`, (error, results) => {
-        res.json(results.rows)
-    })
-    // postgres.query(`SELECT * FROM procedures WHERE name = ${name}`, (error, results) => {
-    //     res.json(results)
-    // });
-
-})
 // //create 
 router.post('/', (req,res) => {
     const {name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time} = req.body;//destructer
@@ -34,17 +21,26 @@ router.post('/', (req,res) => {
     
 })
 
-router.get('/:id', async(req,res,next) => {
-    try{
-        const {id} = req.params;
-        const selectedProcedure = await postgres.query('SELECT * FROM procedures WHERE procedure_id = $1', 
-            [id]
+// router.get('/:id', async(req,res,next) => {
+//     console.log(req.params.id);
+    
+//     try{
+//         const {id} = req.params;
+//         const selectedProcedure = await postgres.query('SELECT * FROM procedures WHERE procedure_id = $1', 
+//             [id]
 
-        );
-        res.json(selectedProcedure.rows)//finds selected procedure
-    }catch(err: any) {
-        console.error(err.message)
-    }
+//         );
+//         res.json(selectedProcedure.rows)//finds selected procedure
+//     }catch(err: any) {
+//         console.error(err.message)
+//     }
+// })
+
+//delete
+router.delete('/:id', (req,res) => {
+    const {id} = req.params
+    postgres.query('DELETE FROM procedures WHERE procedure_id = $1', [id]);
+    res.json('procedure Deleted')
 })
 
 // //update
@@ -57,14 +53,15 @@ router.put('/:id', (req,res) => {
 
 })
 
-//delete
-
-router.delete('/:id', (req,res) => {
-    const {id} = req.params
-    postgres.query('DELETE FROM procedures WHERE procedure_id = $1', [id]);
-    res.json('procedure Deleted')
+// search
+router.get('/search/:search', (req,res) => {
+    //@ts-ignore
+    const {search} = req.params;
+    console.log(req.body);
+    postgres.query(`SELECT * FROM procedures WHERE name = '${search}'`, (error, results) => {
+        res.json(results.rows)
+    })
 })
-
 export default router
 
 
