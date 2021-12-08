@@ -5,6 +5,24 @@ const router = express.Router()
 
 //query all
 
+interface ProcedureRespose {
+    procedures: Array<Object>
+    stats: {
+        avgCost: number 
+    }
+}
+
+function getAverage<Row=Object>(objectArray: Array<Row>, pickValues: (row: Row) => number) {
+    let total = 0;
+    if(objectArray.length === 0) {
+        return 0
+    }
+    objectArray.forEach((row) =>{
+        total += pickValues(row)
+    })
+    return total / objectArray.length
+}
+  
 router.get('/', (req,res) => {
     postgres.query('SELECT * FROM procedures', (error, results) => {
         res.json(results.rows)
@@ -58,10 +76,34 @@ router.get('/search/:search', (req,res) => {
     //@ts-ignore
     const {search} = req.params;
     console.log(req.body);
-    postgres.query(`SELECT * FROM procedures WHERE name = '${search}'`, (error, results) => {
+    postgres.query(`SELECT AVG(price, hospital_rating, heal_time) FROM procedures WHERE name = '${search}'`, (error, results) => {
         res.json(results.rows)
     })
 })
+
+
+
+
+
+// router.get('/search/:search', (req,res) => {
+//     //@ts-ignore
+//     const {search} = req.params;
+//     console.log(req.body);
+//     postgres.query(`SELECT * FROM procedures WHERE name = '${search}' `, (error, results) => {
+
+
+//         // const procedureRespose: ProcedureRespose = {
+//         //     procedures: results.rows, 
+//         //     stats: {
+//         //         avgCost: 
+//         //     }
+//         // }
+//         res.json(
+//             results.rows
+
+//             )
+//     })
+// })
 export default router
 
 
