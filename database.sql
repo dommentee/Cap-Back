@@ -24,6 +24,10 @@ INSERT INTO procedures (name, price, hospital_name, hospital_city, hospital_stat
 ALTER TABLE procedures
 ADD  healTime decimal;
 
+ALTER TABLE users
+ADD auth_count integer;
+
+
 
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,

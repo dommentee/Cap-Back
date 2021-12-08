@@ -9,11 +9,13 @@
 //need start script in package.json
 
 import express from 'express'
-import cors from 'cors'
+// import cors from 'cors'
+import cors, { CorsOptions } from "cors";
 import postgres from './postgres';
+import cookieParser from 'cookie-parser';
 import procedureController from './controllers/procedure';
 import usersController from './controllers/user';
-import loginController from './controllers/login'
+import { authMiddleware } from './models/authentication';
 const app = express()
 const PORT = 3001;
 //middle ware
@@ -21,6 +23,19 @@ const PORT = 3001;
 //dissabled cors to see if My form would send
 
 app.use(cors())
+// Read authentication cookies from requests
+app.use(cookieParser())
+
+// CORS
+var corsOptions: CorsOptions = {
+  credentials: true,
+  origin: true
+}
+app.use(cors(corsOptions));
+
+// Configure JWT-Authentication
+app.use(authMiddleware);
+
 
 
 //give acess to req.body with json
@@ -30,7 +45,6 @@ app.get('/', (req,res) => {
 })
 app.use('/procedures', procedureController)
 app.use('/users', usersController)
-app.use('/login', loginController)
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {
