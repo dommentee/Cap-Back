@@ -8,21 +8,11 @@ const router = express.Router()
 interface ProcedureRespose {
     procedures: Array<Object>
     stats: {
-        avgCost: number 
+        avgPrice: number
+        avgHealTime: number
     }
 }
 
-function getAverage<Row=Object>(objectArray: Array<Row>, pickValues: (row: Row) => number) {
-    let total = 0;
-    if(objectArray.length === 0) {
-        return 0
-    }
-    objectArray.forEach((row) =>{
-        total += pickValues(row)
-    })
-    return total / objectArray.length
-}
-  
 router.get('/', (req,res) => {
     postgres.query('SELECT * FROM procedures', (error, results) => {
         res.json(results.rows)
@@ -46,7 +36,6 @@ router.post('/', (req,res) => {
 //         const {id} = req.params;
 //         const selectedProcedure = await postgres.query('SELECT * FROM procedures WHERE procedure_id = $1', 
 //             [id]
-
 //         );
 //         res.json(selectedProcedure.rows)//finds selected procedure
 //     }catch(err: any) {
@@ -76,8 +65,21 @@ router.get('/search/:search', (req,res) => {
     //@ts-ignore
     const {search} = req.params;
     console.log(req.body);
-    postgres.query(`SELECT AVG(price, hospital_rating, heal_time) FROM procedures WHERE name = '${search}'`, (error, results) => {
-        res.json(results.rows)
+    postgres.query(`SELECT AVG(price) AS avgPrice, AVG(heal_time) AS avgHealTime FROM procedures WHERE name = '${search}' `, (avgError, avgResults) => {
+        postgres.query(`SELECT * FROM procedures WHERE name = '${search}' `, (error, results) => {
+            const procedureRespose: ProcedureRespose = {
+                procedures: results.rows, 
+                    stats: {
+                        avgPrice: avgResults.rows[0].avgprice,
+                        avgHealTime: avgResults.rows[0].avghealtime
+                        
+
+                    }
+                }
+                console.log(avgResults.rows);
+                
+                res.json(procedureRespose)
+            })
     })
 })
 
