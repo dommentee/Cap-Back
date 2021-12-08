@@ -5,7 +5,7 @@ const router = express.Router()
 
 //query all
 
-interface ProcedureRespose {
+interface SearchProcedureRespose {
     procedures: Array<Object>
     stats: {
         avgPrice: number
@@ -65,9 +65,9 @@ router.get('/search/:search', (req,res) => {
     //@ts-ignore
     const {search} = req.params;
     console.log(req.body);
-    postgres.query(`SELECT AVG(price) AS avgPrice, AVG(heal_time) AS avgHealTime FROM procedures WHERE name = '${search}' `, (avgError, avgResults) => {
+    postgres.query(`SELECT ROUND(AVG(price), 2) AS avgPrice, ROUND(AVG(heal_time), 2) AS avgHealTime FROM procedures WHERE name = '${search}' `, (avgError, avgResults) => {
         postgres.query(`SELECT * FROM procedures WHERE name = '${search}' `, (error, results) => {
-            const procedureRespose: ProcedureRespose = {
+            const procedureRespose: SearchProcedureRespose = {
                 procedures: results.rows, 
                     stats: {
                         avgPrice: avgResults.rows[0].avgprice,
