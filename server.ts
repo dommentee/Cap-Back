@@ -24,7 +24,7 @@ const PORT = 3001;
 //dissabled cors to see if My form would send
 // Read authentication cookies from requests
 app.use(cookieParser())
-let whitelist = ['http://localhost:3000']
+let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com']
 // CORS
 var corsOptions: CorsOptions = {
   credentials: true,

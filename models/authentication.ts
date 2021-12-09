@@ -20,6 +20,7 @@ interface TokenData {
 const REFRESH_TOKEN_SECRET = "CHANGE_ME!";
 const ACCESS_TOKEN_SECRET = "CHNAGE_ME_TOO!";
 
+
 export const createTokens = (user: User) => {
   const refreshToken = sign(
     { userId: user.id, authCount: user.authCount },
@@ -32,7 +33,7 @@ export const createTokens = (user: User) => {
 
   return { refreshToken, accessToken };
 };
-
+//to verfy jwt authenthic
 export const verifyRefreshToken = (refreshToken?: string): TokenData => {
     let data: TokenData = {
       userId: null,
@@ -45,6 +46,7 @@ export const verifyRefreshToken = (refreshToken?: string): TokenData => {
     return data;
   }
 
+  //connects logis to express 
 export const authMiddleware = async (req: Req, res: Response, next: () => void) => {
     const refreshToken = req.cookies ? req.cookies["refresh-token"] : null;
     const accessToken = req.cookies ? req.cookies["access-token"] : null;
