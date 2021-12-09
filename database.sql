@@ -32,11 +32,12 @@ ADD auth_count integer;
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
     user_name VARCHAR(255),
-    password VARCHAR(255) 
-
+    password VARCHAR(255),
+    auth_count integer,
+    UNIQUE(user_name)
 );
 
-INSERT INTO users (user_name,password) VALUES ('domCharm','test');
+INSERT INTO users (user_name,password) VALUES ('domCharm','test', 0);
 
 
 

@@ -15,21 +15,21 @@ import postgres from './postgres';
 import cookieParser from 'cookie-parser';
 import procedureController from './controllers/procedure';
 import usersController from './controllers/user';
+import loginController from './controllers/login'
 import { authMiddleware } from './models/authentication';
 const app = express()
 const PORT = 3001;
 //middle ware
 
 //dissabled cors to see if My form would send
-
-app.use(cors())
 // Read authentication cookies from requests
 app.use(cookieParser())
-
+let whitelist = ['http://localhost:3000']
 // CORS
 var corsOptions: CorsOptions = {
   credentials: true,
-  origin: true
+  origin: whitelist
+  
 }
 app.use(cors(corsOptions));
 
@@ -45,6 +45,7 @@ app.get('/', (req,res) => {
 })
 app.use('/procedures', procedureController)
 app.use('/users', usersController)
+app.use('/login', loginController)
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {
