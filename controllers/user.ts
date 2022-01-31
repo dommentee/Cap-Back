@@ -50,10 +50,12 @@ router.post('/', (req, res) => {
 //     })
 // })
 
-router.post('/logout', (req,res) => {
-    res.cookie("refresh-token", "")
-    res.cookie("access-token", "").send('cookie set');
-})
+
+//log out
+// router.post('/logout', (req,res) => {
+//     res.cookie("refresh-token", "")
+//     res.cookie("access-token", "").send('cookie set');
+// })
 
 //resove is a function
 //takes user as param
@@ -82,6 +84,7 @@ router.get('/', (req: Req,res) => {
         })
     }
 })
+
 
 // export const findUserById = (id:number) => {
 //     postgres.query(`SELECT * FROM users WHERE user_id = ${id}`, (error, results) => {

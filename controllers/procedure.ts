@@ -5,7 +5,7 @@ const router = express.Router()
 
 //query all
 
-interface SearchProcedureRespose {
+interface SearchProcedureRespose {//created an interface for procedures
     procedures: Array<Object>
     stats: {
         avgPrice: number
@@ -14,7 +14,7 @@ interface SearchProcedureRespose {
 }
 
 router.get('/', (req,res) => {
-    postgres.query('SELECT * FROM procedures', (error, results) => {
+    postgres.query('SELECT FROM procedures WHERE contributor_id = user_id', (error, results) => {
         res.json(results.rows)
     });
 })

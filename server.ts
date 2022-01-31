@@ -4,7 +4,7 @@
 //dotenv
 //cors
 //ts-init
-//need types 
+//need types //cnat be dev types for heroku
 //tsc --init for typescript config
 //need start script in package.json
 
@@ -16,12 +16,11 @@ import cookieParser from 'cookie-parser';
 import procedureController from './controllers/procedure';
 import usersController from './controllers/user';
 import loginController from './controllers/login'
+import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
 const app = express()
 const PORT = 3001;
 //middle ware
-
-//dissabled cors to see if My form would send
 // Read authentication cookies from requests
 app.use(cookieParser())
 let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com']
@@ -29,7 +28,6 @@ let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herok
 var corsOptions: CorsOptions = {
   credentials: true,
   origin: whitelist
-  
 }
 app.use(cors(corsOptions));
 
@@ -41,11 +39,13 @@ app.use(authMiddleware);
 //give acess to req.body with json
 app.use(express.json())
 app.get('/', (req,res) => {
-    res.send('this is the back')
+  res.send('this is the back')
 })
 app.use('/procedures', procedureController)
 app.use('/users', usersController)
 app.use('/login', loginController)
+app.use('/logout', logoutControlloer)
+
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {
