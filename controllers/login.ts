@@ -27,17 +27,20 @@ router.post('/', (req,res) => {
                     authCount: results.rows[0].auth_count
                 }
                 const tokens = createTokens(user);
-                res.cookie("refresh-token", tokens.refreshToken);
-                res.cookie("access-token", tokens.accessToken).send('cookie set');
+                res.cookie("refresh-token", tokens.refreshToken, {httpOnly:true});
+                res.cookie("access-token", tokens.accessToken, {httpOnly:true}).send('cookie set');
                 // res.status(200)
                 // return user;
             }else {
                 res.status(401)
-                res.send('password dnt match')
+                res.send('password do not match')
             }
-
         }
     })
+})
+
+router.delete('/logout', (req,res) => {
+    res.clearCookie('refresh-token')
 })
 
 export default router

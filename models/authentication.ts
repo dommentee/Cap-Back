@@ -22,15 +22,19 @@ interface TokenData {
 const REFRESH_TOKEN_SECRET = "CHANGE_ME!";
 const ACCESS_TOKEN_SECRET = "CHNAGE_ME_TOO!";
 
-
+//creates token on login
 export const createTokens = (user: User) => {
   const refreshToken = sign(
-    { userId: user.id, authCount: user.authCount },
-    REFRESH_TOKEN_SECRET, { expiresIn: "7d" }
+    { userId: user.id, authCount: user.authCount},
+    REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    //@ts-ignore
+    // process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
   );
   const accessToken = sign(
     { userId: user.id },
     ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    //@ts-ignore
+    // process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
   );
 
   return { refreshToken, accessToken };
@@ -75,8 +79,8 @@ export const authMiddleware = async (req: Req, res: Response, next: () => void) 
   
   const tokens = createTokens(user);
   
-  res.cookie("refresh-token", tokens.refreshToken);
-  res.cookie("access-token", tokens.accessToken);
+  res.cookie("refresh-token", tokens.refreshToken, {httpOnly: true});
+  res.cookie("access-token", tokens.accessToken, {httpOnly: true});
   if (data.userId) req.userId = data.userId;
   
   next();

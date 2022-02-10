@@ -9,6 +9,7 @@
 //need start script in package.json
 
 import express from 'express'
+import dotenv from 'dotenv'
 // import cors from 'cors'
 import cors, { CorsOptions } from "cors";
 import postgres from './postgres';
@@ -20,6 +21,7 @@ import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
 const app = express()
 const PORT = 3001;
+dotenv.config();
 //middle ware
 // Read authentication cookies from requests
 app.use(cookieParser())
@@ -49,7 +51,7 @@ app.use('/logout', logoutControlloer)
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {
-    console.log(`server has started http://localhost:3001`);
+  console.log(`server has started http://localhost:3001`);
     // console.log("App is listeng to " + PORT );
     
 })
