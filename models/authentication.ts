@@ -86,3 +86,10 @@ export const authMiddleware = async (req: Req, res: Response, next: () => void) 
   next();
 }
 
+export const clearLoginCookies = async (req: Req, res: Response, next: () => void) => {
+  
+  res.cookie("refresh-token", "");
+  res.cookie("access-token", "");
+  
+  next();
+}

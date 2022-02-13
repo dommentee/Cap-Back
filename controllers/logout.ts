@@ -1,16 +1,15 @@
+import { signedCookies } from 'cookie-parser';
 import express from 'express'
 import { Cookie } from 'express-session';
+// import { clearLoginCookies } from '../models/authentication';
 const router = express.Router();
 
-router.post('/', (req,res) => {
-
-    // res.cookie("access-token", "",{maxAge: 1})
-    // res.clearCookie("refresh-token")
-    // res.clearCookie("access-token").send('test');
-    // res.status(202).clearCookie('refresh-token').send('cookie cleared'
-    // res.cookie("refresh-token", " ",{maxAge: 1})
-    // res.cookie("refresh-token", "",{maxAge: 1})
-    res.clearCookie("access-token").send('test');
+router.post('/', (req,res, next) => {
+    // clearLoginCookies(req, res, next);
+    res.cookie("refresh-token", "");
+    res.cookie("access-token", "");
+    res.send('please')
+    next();
 })
 
 export default router;
