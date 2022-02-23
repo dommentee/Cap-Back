@@ -72,8 +72,6 @@ router.get('/search/:search', (req,res) => {
                     stats: {
                         avgPrice: avgResults.rows[0].avgprice,
                         avgHealTime: avgResults.rows[0].avghealtime
-                        
-
                     }
                 }
                 console.log(avgResults.rows);
