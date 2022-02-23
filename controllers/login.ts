@@ -4,6 +4,7 @@ const router = express.Router()
 import bcrypt from 'bcrypt';
 import { createTokens } from '../models/authentication';
 
+
 export interface User {
     id: number
     username: string
@@ -37,10 +38,6 @@ router.post('/', (req,res) => {
             }
         }
     })
-})
-
-router.delete('/logout', (req,res) => {
-    res.clearCookie('refresh-token')
 })
 
 export default router
