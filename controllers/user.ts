@@ -23,9 +23,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req,res) => {
-    postgres.query('SELECT * FROM users WHERE user_id = ${id}', (error, results) => {
-        res.json(results.rows)
-    });
+
 })
 
 // function used to find user in login file login
