@@ -18,6 +18,7 @@ import usersController from './controllers/user';
 import loginController from './controllers/login'
 import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
+import { nextTick } from 'process';
 const app = express()
 const PORT = 3001;
 require('dotenv').config()
@@ -29,8 +30,8 @@ let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herok
 // CORS
 
 app.use(cors({
+  origin: 'https://enigmatic-retreat-81576.herokuapp.com/',
   credentials: true,
-  origin: 'https://enigmatic-retreat-81576.herokuapp.com'
 }));
 
 // Configure JWT-Authentication
