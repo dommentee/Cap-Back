@@ -27,20 +27,14 @@ require('dotenv').config()
 app.use(cookieParser())
 let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com']
 // CORS
-var corsOptions: CorsOptions = {
-  credentials: true,
-  origin: whitelist
 
-}
-app.use(cors(corsOptions));
+app.use(cors({
+  credentials: true,
+  origin: 'https://enigmatic-retreat-81576.herokuapp.com'
+}));
 
 // Configure JWT-Authentication
-app.use(authMiddleware);
-var xhr = new XMLHttpRequest();
-xhr.open('POST', 'https://enigmatic-retreat-81576.herokuapp.com', true);
-xhr.open('GET', 'https://enigmatic-retreat-81576.herokuapp.com', true);
-xhr.withCredentials = true;
-xhr.send(null);
+
 
 
 //give acess to req.body with json
