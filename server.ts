@@ -29,15 +29,11 @@ let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herok
 // CORS
 var corsOptions: CorsOptions = {
   credentials: true,
-  origin: whitelist
+  origin: whitelist,
+  allowedHeaders: whitelist
 }
 app.use(cors(corsOptions));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
+
 // Configure JWT-Authentication
 app.use(authMiddleware);
 
