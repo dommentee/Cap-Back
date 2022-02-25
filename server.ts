@@ -29,8 +29,8 @@ let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herok
 // CORS
 var corsOptions: CorsOptions = {
   credentials: true,
-  origin: whitelist,
-  allowedHeaders: '*' 
+  origin: whitelist
+
 }
 app.use(cors(corsOptions));
 
