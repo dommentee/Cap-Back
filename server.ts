@@ -32,6 +32,10 @@ var corsOptions: CorsOptions = {
   origin: whitelist,
   allowedHeaders: '*' 
 }
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://enigmatic-retreat-81576.herokuapp.com', true);
+xhr.withCredentials = true;
+xhr.send(null);
 app.use(cors(corsOptions));
 
 // Configure JWT-Authentication
