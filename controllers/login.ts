@@ -3,6 +3,7 @@ import postgres from '../postgres'
 const router = express.Router()
 import bcrypt from 'bcrypt';
 import { createTokens } from '../models/authentication';
+import path from 'path/posix';
 
 
 export interface User {
@@ -28,8 +29,8 @@ router.post('/', (req,res) => {
                     authCount: results.rows[0].auth_count
                 }
                 const tokens = createTokens(user);
-                res.cookie("refresh-token", tokens.refreshToken, {httpOnly:true});
-                res.cookie("access-token", tokens.accessToken, {httpOnly:true}).send('cookie set');
+                res.cookie("refresh-token", tokens.refreshToken, {httpOnly:true, path:`https://enigmatic-retreat-81576.herokuapp.com`});
+                res.cookie("access-token", tokens.accessToken, {httpOnly:true, path:`https://enigmatic-retreat-81576.herokuapp.com`}).send('cookie set');
                 // res.status(200)
                 // return user;
             }else {
