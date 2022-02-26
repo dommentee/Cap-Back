@@ -29,15 +29,15 @@ console.log(ACCESS_TOKEN_SECRET) + 'test3';
 export const createTokens = (user: User) => {
   const refreshToken = sign(
     { userId: user.id, authCount: user.authCount},
-    REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    // REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
     //@ts-ignore
-    // process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
   );
   const accessToken = sign(
     { userId: user.id },
-    ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    // ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
     //@ts-ignore
-    // process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
   );
 
   return { refreshToken, accessToken };
