@@ -18,14 +18,10 @@ import usersController from './controllers/user';
 import loginController from './controllers/login'
 import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
+const dotenv = require('dotenv')
+dotenv.config()
 const app = express()
 const PORT = 3001;
-
-
-require('dotenv').config(
-  process.env.REFRESH_TOKEN_SECRET,
-  process.env.ACCESS_TOKEN_SECRET
-)
 //middle ware
 // Read authentication cookies from requests
 app.use(cookieParser())
@@ -52,6 +48,7 @@ app.use('/users', usersController)
 app.use('/login', loginController)
 app.use('/logout', logoutControlloer)
 
+console.log(process.env.REFRESH_TOKEN_SECRET);
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {

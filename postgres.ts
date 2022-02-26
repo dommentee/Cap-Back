@@ -9,12 +9,6 @@ if(process.env.DATABASE_URL){
 	dbConfig.ssl = { rejectUnauthorized: false }
 	dbConfig.connectionString = process.env.DATABASE_URL
 }
-if(process.env.ACCESS_TOKEN_SECRET) {
-    dbConfig.connectionString = process.env.ACCESS_TOKEN_SECRET
-}
-if(process.env.REFRESH_TOKEN_SECRET) {
-    dbConfig.connectionString = process.env.REFRESH_TOKEN_SECRET
-}
 
 const client = new Client(dbConfig)
 
