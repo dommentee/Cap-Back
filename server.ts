@@ -20,21 +20,20 @@ import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
 const app = express()
 const PORT = 3001;
-require('dotenv').config()
-// dotenv.config();
+dotenv.config();
 //middle ware
 // Read authentication cookies from requests
 app.use(cookieParser())
-let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com']
+let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com', 'https://still-plateau-52039.herokuapp.com']
 // CORS
 var corsOptions: CorsOptions = {
-  origin: whitelist,
   credentials: true,
-
+  origin: whitelist
 }
 app.use(cors(corsOptions));
 
 // Configure JWT-Authentication
+app.use(authMiddleware);
 
 
 
