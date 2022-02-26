@@ -19,22 +19,22 @@ interface TokenData {
 }
 
 //should be in env file  
-const REFRESH_TOKEN_SECRET = "CHANGE_ME!";
-const ACCESS_TOKEN_SECRET = "CHNAGE_ME_TOO!";
+const REFRESH_TOKEN_SECRET = process.env. REFRESH_TOKEN_SECRET!;
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
 
 //creates token on login
 export const createTokens = (user: User) => {
   const refreshToken = sign(
     { userId: user.id, authCount: user.authCount},
-    // REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
     //@ts-ignore
-    process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    // process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
   );
   const accessToken = sign(
     { userId: user.id },
-    // ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
     //@ts-ignore
-    process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    // process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
   );
 
   return { refreshToken, accessToken };
