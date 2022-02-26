@@ -10,6 +10,7 @@
 
 import express from 'express'
 import dotenv from 'dotenv'
+// import cors from 'cors'
 import cors, { CorsOptions } from "cors";
 import postgres from './postgres';
 import cookieParser from 'cookie-parser';
@@ -24,7 +25,7 @@ dotenv.config();
 //middle ware
 // Read authentication cookies from requests
 app.use(cookieParser())
-let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com', 'https://still-plateau-52039.herokuapp.com']
+let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herokuapp.com']
 // CORS
 var corsOptions: CorsOptions = {
   credentials: true,
