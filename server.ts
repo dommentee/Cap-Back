@@ -50,7 +50,7 @@ app.use('/logout', logoutControlloer)
 
 
 postgres.connect()
-app.listen(process.env.PORT || PORT, ()  => {
+app.listen(process.env.ACCESS_TOKEN_SECRET || PORT, ()  => {
   console.log(`server has started http://localhost:3001`);
     // console.log("App is listeng to " + PORT );
     
