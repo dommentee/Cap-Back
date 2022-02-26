@@ -30,7 +30,7 @@ let whitelist = ['http://localhost:3000', 'https://enigmatic-retreat-81576.herok
 // CORS
 
 app.use(cors({
-  origin: 'https://enigmatic-retreat-81576.herokuapp.com',
+  origin: ['https://enigmatic-retreat-81576.herokuapp.com', 'https://enigmatic-retreat-81576.herokuapp.com'],
   credentials: true,
 }));
 
