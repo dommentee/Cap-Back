@@ -28,8 +28,8 @@ router.post('/', (req,res) => {
                     authCount: results.rows[0].auth_count
                 }
                 const tokens = createTokens(user);
-                res.cookie("refresh-token", tokens.refreshToken, {httpOnly:true, sameSite:'none'}, );
-                res.cookie("access-token", tokens.accessToken, {httpOnly:true, sameSite:'none'}).send('cookie set');
+                res.cookie("refresh-token", tokens.refreshToken, {httpOnly:true, sameSite:'none', secure: true}, );
+                res.cookie("access-token", tokens.accessToken, {httpOnly:true, sameSite:'none', secure: true}).send('cookie set');
                 // res.status(200)
                 // return user;
             }else {
