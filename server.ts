@@ -20,7 +20,12 @@ import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
 const app = express()
 const PORT = 3001;
-require('dotenv').config()
+
+
+require('dotenv').config(
+  process.env.REFRESH_TOKEN_SECRET,
+  process.env.ACCESS_TOKEN_SECRET
+)
 //middle ware
 // Read authentication cookies from requests
 app.use(cookieParser())
