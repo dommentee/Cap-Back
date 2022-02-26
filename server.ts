@@ -49,6 +49,7 @@ app.use('/login', loginController)
 app.use('/logout', logoutControlloer)
 
 console.log(process.env.REFRESH_TOKEN_SECRET);
+console.log(process.env.ACCESS_TOKEN_SECRET);
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {
