@@ -40,6 +40,7 @@ app.use(authMiddleware);
 
 //give acess to req.body with json
 app.use(express.json())
+
 app.get('/', (req,res) => {
   res.send('this is the back')
 })
@@ -47,9 +48,6 @@ app.use('/procedures', procedureController)
 app.use('/users', usersController)
 app.use('/login', loginController)
 app.use('/logout', logoutControlloer)
-
-console.log(process.env.REFRESH_TOKEN_SECRET);
-console.log(process.env.ACCESS_TOKEN_SECRET);
 
 postgres.connect()
 app.listen(process.env.PORT || PORT, ()  => {

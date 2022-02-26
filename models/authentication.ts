@@ -1,6 +1,7 @@
 import { Request, Response } from "express";//imprt express
 import { sign, verify  } from "jsonwebtoken";//jwt atributes
 
+
 import { findUserById, User } from "../controllers/user";//import function and interface from user controller
 
 export interface Req extends Request {
