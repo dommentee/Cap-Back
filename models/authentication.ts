@@ -82,8 +82,8 @@ export const authMiddleware = async (req: Req, res: Response, next: () => void) 
   
   const tokens = createTokens(user);
   
-  res.cookie("refresh-token", tokens.refreshToken, {httpOnly: true});
-  res.cookie("access-token", tokens.accessToken, {httpOnly: true});
+  res.cookie("refresh-token", tokens.refreshToken, {httpOnly: true, sameSite:'none'});
+  res.cookie("access-token", tokens.accessToken, {httpOnly: true, sameSite:'none'});
   if (data.userId) req.userId = data.userId;
   
   next();
