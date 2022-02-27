@@ -20,7 +20,7 @@ interface TokenData {
 }
 
 //should be in env file  
-const REFRESH_TOKEN_SECRET = process.env. REFRESH_TOKEN_SECRET!;
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
 console.log(REFRESH_TOKEN_SECRET + 'test');
 console.log(ACCESS_TOKEN_SECRET) + 'test3';
