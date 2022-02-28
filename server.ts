@@ -18,8 +18,8 @@ import usersController from './controllers/user';
 import loginController from './controllers/login'
 import logoutControlloer from './controllers/logout'
 import { authMiddleware } from './models/authentication';
-const dotenv = require('dotenv')
-dotenv.config()
+// const dotenv = require('dotenv')
+// dotenv.config()
 const app = express()
 const PORT = 3001;
 //middle ware

@@ -13,11 +13,11 @@ interface SearchProcedureRespose {//created an interface for procedures
     }
 }
 
-router.get('/', (req,res) => {
-    postgres.query('SELECT * FROM procedures', (error, results) => {
-        res.json(results.rows)
-    });
-})
+// router.get('/', (req,res) => {
+//     postgres.query('SELECT * FROM procedures', (error, results) => {
+//         res.json(results.rows)
+//     });
+// })
 
 // //create 
 router.post('/', (req,res) => {

@@ -22,11 +22,11 @@ router.post('/', (req, res) => {
     })
 })
 
-router.get('/', (req,res) => {
-    postgres.query('SELECT * FROM users', (error, results) => {
-        res.json(results)
-    });
-})
+// router.get('/', (req,res) => {
+//     postgres.query('SELECT * FROM users', (error, results) => {
+//         res.json(results)
+//     });
+// })
 
 // function used to find user in login file login
 export const findUserById = (id:number): Promise<User> => {

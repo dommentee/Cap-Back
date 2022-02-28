@@ -1,7 +1,6 @@
 import { Request, Response } from "express";//imprt express
 import { sign, verify  } from "jsonwebtoken";//jwt atributes
 
-
 import { findUserById, User } from "../controllers/user";//import function and interface from user controller
 
 export interface Req extends Request {
@@ -20,24 +19,22 @@ interface TokenData {
 }
 
 //should be in env file  
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
+const REFRESH_TOKEN_SECRET = process.env. REFRESH_TOKEN_SECRET!;
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
-console.log(REFRESH_TOKEN_SECRET + 'test');
-console.log(ACCESS_TOKEN_SECRET) + 'test3';
 
 //creates token on login
 export const createTokens = (user: User) => {
   const refreshToken = sign(
     { userId: user.id, authCount: user.authCount},
-    // REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
     //@ts-ignore
-    process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
+    // process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" },
   );
   const accessToken = sign(
     { userId: user.id },
-    // ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
     //@ts-ignore
-    process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
+    // process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15min" }
   );
 
   return { refreshToken, accessToken };
@@ -82,8 +79,8 @@ export const authMiddleware = async (req: Req, res: Response, next: () => void) 
   
   const tokens = createTokens(user);
   
-  res.cookie("refresh-token", tokens.refreshToken, {httpOnly: true, sameSite:'none', secure: true});
-  res.cookie("access-token", tokens.accessToken, {httpOnly: true, sameSite:'none', secure: true});
+  res.cookie("refresh-token", tokens.refreshToken, {httpOnly: true});
+  res.cookie("access-token", tokens.accessToken, {httpOnly: true});
   if (data.userId) req.userId = data.userId;
   
   next();
