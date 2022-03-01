@@ -22,12 +22,6 @@ router.post('/', (req, res) => {
     })
 })
 
-// router.get('/', (req,res) => {
-//     postgres.query('SELECT * FROM users', (error, results) => {
-//         res.json(results)
-//     });
-// })
-
 // function used to find user in login file login
 export const findUserById = (id:number): Promise<User> => {
     return new Promise((resolve:(user: User) => void , reject) => {
@@ -52,6 +46,15 @@ router.get('/', (req: Req, res) => {
             res.json(user)
         })
     }
+})
+
+router.get('/users/:user', (req,res) => {
+    //@ts-ignore
+    const {user} = req.params;
+    console.log(req.body);
+    postgres.query(`SELECT * FROM users WHERE user = '${user}'`, (userError, userInfo) => {
+
+    })
 })
 
 

@@ -14,16 +14,23 @@ interface SearchProcedureRespose {//created an interface for procedures
 }
 
 // router.get('/', (req,res) => {
-//     postgres.query('SELECT * FROM procedures', (error, results) => {
+//     postgres.query('SELECT FROM procedures WHERE contributor_id = user_id', (error, results) => {
 //         res.json(results.rows)
 //     });
 // })
 
+
+router.get('/', (req,res) => {
+    
+    postgres.query('SELECT * FROM procedures', (error: any, results) => {
+        res.json(results.rows)
+    });
+})
 // //create 
 router.post('/', (req,res) => {
-    const {name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time} = req.body;//destructer
-    postgres.query(`INSERT INTO procedures (name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-    [name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time], (error, results) => {
+    const {name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time, contributor_id} = req.body;//destructer
+    postgres.query(`INSERT INTO procedures (name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time, contributor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+    [name, price, hospital_name,hospital_city,hospital_state,hospital_rating,heal_time, contributor_id], (error, results) => {
         res.json(results.rows[0])
     });
     
@@ -72,6 +79,8 @@ router.get('/search/:search', (req,res) => {
                     stats: {
                         avgPrice: avgResults.rows[0].avgprice,
                         avgHealTime: avgResults.rows[0].avghealtime
+                        
+
                     }
                 }
                 console.log(avgResults.rows);
